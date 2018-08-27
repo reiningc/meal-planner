@@ -19,6 +19,13 @@ app.get("/meals", function(req, res){
     res.render("meals", {meals:meals});
 });
 
+app.post("/meals", function(req, res){
+    res.send("YOU HIT THE POST ROUTE ADD THAT MEAL BABBY!!");
+});
+
+app.get("/meals/new", function(req, res){
+    res.render("new");
+});
 
 app.listen(3000, function(){
     console.log("Meal Planner server running...")
