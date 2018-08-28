@@ -1,12 +1,34 @@
 <% include partials/header %>
-<h1>Meals Page</h1>
+<div class="ui grid container">
+    <div class="row">
+            <div class="column">
+                <div class="ui message">
+                        <h1 class="ui header">Welcome to Very Good Meal Planner!</h1>
+                        <p>Create your meal plan using our hand-picked meals.</p>
+                        <a class="ui blue button" href="/meals/new">Add New Meal</a>
+                </div>
+            </div>
+        </div>
+</div>
 
-<a href="/meals/new">Add New Meal</a>
-
-<% meals.forEach(function(meal){ %>
-    <div>
-        <h4><%= meal.name %></h4>
-        <img src="<%= meal.image %>">
+<div class="ui four column doubling stackable grid">
+    <div class="row">
+        <div class="column">
+            <h3>Our Most Popular Meals</h3>
+        </div>
     </div>
-<% }) %> 
+    <% meals.forEach(function(meal){ %>
+        <div class="column">
+            <div class="ui card">
+                <div class="image">
+                    <img src="<%= meal.image %>">
+                </div>
+                <div class="content">
+                    <h4><%= meal.name %></h4>
+                </div>
+            </div>
+        </div>
+    <% }) %> 
+</div>
+
 <% include partials/footer %>
