@@ -1,11 +1,46 @@
 var express    = require("express"),
     app        = express(),
-    bodyParser = require("body-parser");
+    bodyParser = require("body-parser"),
+    mongoose   = require("mongoose");
 
+mongoose.connect("mongodb://localhost:27017/vgmp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
+// SCHEMA SETUP
+var mealSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
+
+var Meal = mongoose.model("Meal", mealSchema);
+
+Meal.create(
+    {
+        name: "Steamed Dumplings", 
+        image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"
+    }, function(err, meal){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("NEWLY CREATED MEAL: ");
+            console.log(meal);
+        }
+    });
+
 var meals = [
+    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
+    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
+    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
+    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
+    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
+    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
+    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
+    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
+    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
+    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
+    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
+    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
     {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
     {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
     {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"}
