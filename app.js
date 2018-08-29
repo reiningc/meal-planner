@@ -20,7 +20,9 @@ var Meal = mongoose.model("Meal", mealSchema);
 // Meal.create(
 //     {
 //         name: "Steamed Dumplings", 
-//         image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"
+//         image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60",
+//         ingredients: "dumplings and steam",
+//         recipe: "steam dumplings to taste"
 //     }, function(err, meal){
 //         if(err){
 //             console.log(err);
@@ -65,7 +67,7 @@ app.get("/meals/new", function(req, res){
 
 // SHOW - shows info about one meal
 app.get("/meals/:id", function(req, res){
-    res.send("THIS WILL BE THE SHOW PAGE")
+    res.render("show");
 });
 
 
