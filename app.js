@@ -10,7 +10,9 @@ app.set("view engine", "ejs");
 // SCHEMA SETUP
 var mealSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    ingredients: String,
+    recipe: String
 });
 
 var Meal = mongoose.model("Meal", mealSchema);
@@ -33,6 +35,7 @@ app.get("/", function(req, res){
    res.render("landing");
 });
 
+// INDEX - display all meals
 app.get("/meals", function(req, res){
     Meal.find({}, function(err, allMeals){
         if(err){
@@ -43,6 +46,7 @@ app.get("/meals", function(req, res){
     });
 });
 
+// CREATE - add new meal to DB
 app.post("/meals", function(req, res){
     Meal.create(req.body.meal, function(err, newMeal){
         if(err){
@@ -54,9 +58,16 @@ app.post("/meals", function(req, res){
     });
 });
 
+// NEW - new meals form
 app.get("/meals/new", function(req, res){
     res.render("new");
 });
+
+// SHOW - shows info about one meal
+app.get("/meals/:id", function(req, res){
+    res.send("THIS WILL BE THE SHOW PAGE")
+});
+
 
 app.listen(3000, function(){
     console.log("Meal Planner server running...")
