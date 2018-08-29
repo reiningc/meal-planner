@@ -15,48 +15,43 @@ var mealSchema = new mongoose.Schema({
 
 var Meal = mongoose.model("Meal", mealSchema);
 
-Meal.create(
-    {
-        name: "Steamed Dumplings", 
-        image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"
-    }, function(err, meal){
-        if(err){
-            console.log(err);
-        } else {
-            console.log("NEWLY CREATED MEAL: ");
-            console.log(meal);
-        }
-    });
+// Meal.create(
+//     {
+//         name: "Steamed Dumplings", 
+//         image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"
+//     }, function(err, meal){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             console.log("NEWLY CREATED MEAL: ");
+//             console.log(meal);
+//         }
+//     });
 
-var meals = [
-    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
-    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
-    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
-    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
-    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
-    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
-    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
-    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
-    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
-    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
-    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
-    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"},
-    {name: "Ensalada Fruita Fresca", image: "https://images.unsplash.com/photo-1531104048215-632162c6af26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=af73f2b6c701b9002b85ac1425607d5f&auto=format&fit=crop&w=500&q=60"},
-    {name: "Steamed Dumplings", image: "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=90a4f62a13955fd92b02cb3ae8c31b94&auto=format&fit=crop&w=500&q=60"},
-    {name: "Fancy Avocado Toast", image: "https://images.unsplash.com/photo-1515942400420-2b98fed1f515?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36121c3c0d935f861d76d45b1bf0e70&auto=format&fit=crop&w=500&q=60"}
-]
 
 app.get("/", function(req, res){
    res.render("landing");
 });
 
 app.get("/meals", function(req, res){
-    res.render("meals", {meals:meals});
+    Meal.find({}, function(err, allMeals){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("meals", {meals:allMeals});
+        }
+    });
 });
 
 app.post("/meals", function(req, res){
-    meals.push(req.body.meal);
-    res.redirect("meals");
+    Meal.create(req.body.meal, function(err, newMeal){
+        if(err){
+            console.log(err);
+            res.redirect("/meals");
+        } else {
+            res.redirect("/meals");
+        }
+    });
 });
 
 app.get("/meals/new", function(req, res){
