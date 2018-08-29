@@ -43,7 +43,7 @@ app.get("/meals", function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.render("meals", {meals:allMeals});
+            res.render("index", {meals:allMeals});
         }
     });
 });
@@ -53,9 +53,9 @@ app.post("/meals", function(req, res){
     Meal.create(req.body.meal, function(err, newMeal){
         if(err){
             console.log(err);
-            res.redirect("/meals");
+            res.redirect("index");
         } else {
-            res.redirect("/meals");
+            res.redirect("index");
         }
     });
 });
@@ -67,7 +67,13 @@ app.get("/meals/new", function(req, res){
 
 // SHOW - shows info about one meal
 app.get("/meals/:id", function(req, res){
-    res.render("show");
+    Meal.findById(req.params.id, function(err, foundMeal){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("show", {meal:foundMeal});
+        }
+    });
 });
 
 
