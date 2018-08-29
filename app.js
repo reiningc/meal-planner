@@ -1,21 +1,14 @@
 var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose");
+    mongoose   = require("mongoose"),
+    Meal       = require("./models/meal");
 
 mongoose.connect("mongodb://localhost:27017/vgmp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-// SCHEMA SETUP
-var mealSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    ingredients: String,
-    recipe: String
-});
 
-var Meal = mongoose.model("Meal", mealSchema);
 
 // Meal.create(
 //     {
@@ -53,9 +46,9 @@ app.post("/meals", function(req, res){
     Meal.create(req.body.meal, function(err, newMeal){
         if(err){
             console.log(err);
-            res.redirect("index");
+            res.redirect("/meals");
         } else {
-            res.redirect("index");
+            res.redirect("/meals");
         }
     });
 });
