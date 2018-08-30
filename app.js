@@ -36,7 +36,7 @@ app.get("/meals", function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.render("index", {meals:allMeals});
+            res.render("meals/index", {meals:allMeals});
         }
     });
 });
@@ -55,7 +55,7 @@ app.post("/meals", function(req, res){
 
 // NEW - new meals form
 app.get("/meals/new", function(req, res){
-    res.render("new");
+    res.render("meals/new");
 });
 
 // SHOW - shows info about one meal
@@ -64,7 +64,7 @@ app.get("/meals/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.render("show", {meal:foundMeal});
+            res.render("meals/show", {meal:foundMeal});
         }
     });
 });
