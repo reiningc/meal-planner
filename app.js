@@ -4,6 +4,10 @@ var express    = require("express"),
     mongoose   = require("mongoose"),
     Meal       = require("./models/meal");
 
+var mealRoutes = require("./routes/meals");
+
+app.use("/meals", mealRoutes);
+
 mongoose.connect("mongodb://localhost:27017/vgmp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -30,44 +34,6 @@ app.get("/", function(req, res){
    res.render("landing");
 });
 
-// INDEX - display all meals
-app.get("/meals", function(req, res){
-    Meal.find({}, function(err, allMeals){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("meals/index", {meals:allMeals});
-        }
-    });
-});
-
-// CREATE - add new meal to DB
-app.post("/meals", function(req, res){
-    Meal.create(req.body.meal, function(err, newMeal){
-        if(err){
-            console.log(err);
-            res.redirect("/meals");
-        } else {
-            res.redirect("/meals");
-        }
-    });
-});
-
-// NEW - new meals form
-app.get("/meals/new", function(req, res){
-    res.render("meals/new");
-});
-
-// SHOW - shows info about one meal
-app.get("/meals/:id", function(req, res){
-    Meal.findById(req.params.id, function(err, foundMeal){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("meals/show", {meal:foundMeal});
-        }
-    });
-});
 
 
 app.listen(3000, function(){
