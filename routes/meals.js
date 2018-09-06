@@ -32,7 +32,7 @@ router.get("/new", function(req, res){
 
 // SHOW - shows info about one meal
 router.get("/:id", function(req, res){
-    Meal.findById(req.params.id, function(err, foundMeal){
+    Meal.findById(req.params.id).populate("comments").exec(function(err, foundMeal){
         if(err){
             console.log(err);
         } else {
