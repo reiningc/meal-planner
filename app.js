@@ -2,7 +2,11 @@ var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
     mongoose   = require("mongoose"),
-    Meal       = require("./models/meal");
+    Meal       = require("./models/meal"),
+    Comment    = require("./models/comment"),
+    seedDB     = require("./seeds");
+
+seedDB();
 
 var mealRoutes = require("./routes/meals"),
     indexRoutes = require("./routes/index");
