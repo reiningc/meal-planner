@@ -7,7 +7,7 @@ var mealSchema = new mongoose.Schema({
     recipe: String,
     comments: [
         {
-            type = mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
         }
     ]
