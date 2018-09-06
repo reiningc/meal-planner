@@ -4,7 +4,13 @@ var mealSchema = new mongoose.Schema({
     name: String,
     image: String,
     ingredients: String,
-    recipe: String
+    recipe: String,
+    comments: [
+        {
+            type = mongoose.Schema.Type.ObjectId,
+            ref: "Comment"
+        }
+    ]
 });
 
 module.exports = mongoose.model("Meal", mealSchema);
