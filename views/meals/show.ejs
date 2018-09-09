@@ -1,14 +1,49 @@
 <% include ../partials/header %>
 
-<h1><%= meal.name %></h1>
-<img src="<%= meal.image %>">
-<h3>Ingredients:</h3>
-<p><%= meal.ingredients %></p>
-<h3>Recipe:</h3>
-<p><%= meal.recipe %></p>
+<div class="ui grid">
+    <div class="three wide column">
+        <h3>Ingredients:</h3>
+        <div class="ui segment">
+            <p><%= meal.ingredients %></p>
+        </div>
+    </div>
+    <div class="twelve wide column">
+        <div class="ui fluid card">
+            <div class="ui image">
+                <img src="<%= meal.image %>">
+            </div>
+            <div class="content">
+                <h2><%= meal.name %></h2>
+                <h4>Recipe:</h4>
+                <p><%= meal.recipe %></p>
+            </div>
+        </div>
 
-<% meal.comments.forEach(function(comment){ %>
-    <p><strong><%= comment.author %></strong> - <%= comment.text %></p>
-<% }) %>
+
+        
+
+        <div class="ui secondary segment">
+            <p>
+                <a class="ui right floated green submit button" href="/meals/<%= meal._id %>/comments/new">Add New Comment</a>
+            </p>
+            <div class="ui comments">
+                <% meal.comments.forEach(function(comment){ %>
+                    <div class="comment">
+                        <div class="content">
+                            <a class="author"><%= comment.author %></a>
+                        </div>
+                        <div class="text">
+                            <%= comment.text %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <% include ../partials/footer %>
