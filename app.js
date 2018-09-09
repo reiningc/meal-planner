@@ -21,12 +21,6 @@ app.use("/", indexRoutes);
 app.use("/meals", mealRoutes);
 app.use("/meals/:id/comments", commentRoutes);
 
-app.get("/", function(req, res){
-   res.render("landing");
-});
-
-
-
 app.listen(3000, function(){
     console.log("Meal Planner server running...")
 });
