@@ -20,9 +20,9 @@
     <% meals.forEach(function(meal){ %>
         <div class="column">
             <div class="ui card">
-                <div class="image">
+                <a class="image" href="/meals/<%= meal._id %>">
                     <img src="<%= meal.image %>">
-                </div>
+                </a>
                 <div class="center aligned content">
                     <h4><%= meal.name %></h4>
                     <p><a class="ui blue button" href="/meals/<%= meal._id %>">Show Recipe</a></p>
