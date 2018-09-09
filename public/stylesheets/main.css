@@ -1,0 +1,8 @@
+.ui.four.column.doubling.stackable.grid .ui.card .image img {
+    max-height: 250px;
+}
+
+.ui.fluid.card .ui.image img {
+    height: auto;
+    max-width: 100%;
+}
