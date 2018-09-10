@@ -16,7 +16,17 @@ router.get("/", function(req, res){
 
 // CREATE - add new meal to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
-    Meal.create(req.body.meal, function(err, newMeal){
+    var name = req.body.meal.name;
+    var image = req.body.meal.image;
+    var ingredients = req.body.meal.ingredients;
+    var recipe = req.body.meal.recipe;
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var meal = {name: name, image: image, ingredients: ingredients, recipe: recipe, author: author};
+
+    Meal.create(meal, function(err, newMeal){
         if(err){
             console.log(err);
             res.redirect("/meals");
