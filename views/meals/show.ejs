@@ -14,13 +14,11 @@
             </div>
             <div class="content">
                 <h2><%= meal.name %></h2>
+                <p><em>Submitted by: <%= meal.author.username %></em></p>
                 <h4>Recipe:</h4>
                 <p><%= meal.recipe %></p>
             </div>
         </div>
-
-
-        
 
         <div class="ui secondary segment">
             <p>
@@ -30,7 +28,7 @@
                 <% meal.comments.forEach(function(comment){ %>
                     <div class="comment">
                         <div class="content">
-                            <a class="author"><%= comment.author %></a>
+                            <a class="author"><%= comment.author.username %></a>
                         </div>
                         <div class="text">
                             <%= comment.text %>
