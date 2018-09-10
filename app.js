@@ -31,6 +31,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// middleware to add currentUser to the list of objects passed within each route
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user; // req.user comes from passport
+    next();
+});
+
 app.use("/", indexRoutes);
 app.use("/meals", mealRoutes);
 app.use("/meals/:id/comments", commentRoutes);
