@@ -4,6 +4,7 @@ var express         = require("express"),
     mongoose        = require("mongoose"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
+    methodOverride  = require("method-override"),
     Meal            = require("./models/meal"),
     Comment         = require("./models/comment"),
     User            = require("./models/user"),
@@ -17,7 +18,8 @@ mongoose.connect("mongodb://localhost:27017/vgmp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-seedDB();
+app.use(methodOverride("_method"));
+// seedDB();
 
 // PASSPORT CONFIG
 app.use(require("express-session")({
