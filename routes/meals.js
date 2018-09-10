@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Meal = require("../models/meal");
+var middleware = require("../middleware");
 
 // INDEX - display all meals
 router.get("/", function(req, res){

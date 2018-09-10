@@ -2,6 +2,7 @@ var express = require("express");
 var passport = require("passport");
 var router = express.Router();
 var User = require("../models/user");
+var middleware = require("../middleware");
 
 
 router.get("/", function(req, res){
@@ -40,6 +41,12 @@ router.post("/login",
             failureRedirect: "/login"
         }), 
     function(req, res){
+});
+
+// logout route
+router.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/meals");
 });
 
 module.exports = router;
