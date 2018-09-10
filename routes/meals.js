@@ -15,7 +15,7 @@ router.get("/", function(req, res){
 });
 
 // CREATE - add new meal to DB
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     Meal.create(req.body.meal, function(err, newMeal){
         if(err){
             console.log(err);
@@ -27,7 +27,7 @@ router.post("/", function(req, res){
 });
 
 // NEW - new meals form
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("meals/new");
 });
 
