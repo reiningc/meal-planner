@@ -31,6 +31,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             console.log(err);
             res.redirect("/meals");
         } else {
+            req.flash("success", "Meal created.");
             res.redirect("/meals");
         }
     });
@@ -44,8 +45,9 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // SHOW - shows info about one meal
 router.get("/:id", function(req, res){
     Meal.findById(req.params.id).populate("comments").exec(function(err, foundMeal){
-        if(err){
-            console.log(err);
+        if(err || !foundMeal){
+            req.flash("error", "Meal not found.");
+            res.redirect("back");
         } else {
             res.render("meals/show", {meal:foundMeal});
         }
@@ -68,6 +70,7 @@ router.put("/:id", middleware.checkMealOwnership, function(req, res){
         if(err){
             res.redirect("/meals");
         } else {
+            req.flash("success", "Meal updated.");
             res.redirect("/meals/" + req.params.id);
         }
     });
@@ -79,6 +82,7 @@ router.delete("/:id", middleware.checkMealOwnership, function(req, res){
         if(err){
             res.redirect("/meals");
         } else {
+            req.flash("success", "Meal deleted.");
             res.redirect("/meals");
         }
     });
