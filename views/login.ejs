@@ -1,11 +1,27 @@
 <% include ./partials/header %>
 
-<h1>Log In</h1>
+<div class="ui middle aligned center aligned grid">
+    <div class="six wide column">
+        <h1 class="ui header">
+            <div class="content">
+                    Log In
+            </div>
+        </h1>
 
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Log In</button>
-</form>
+        <form class="ui form" action="/login" method="POST">
+            <div class="ui stacked segment">
+                <div class="field">
+                        <input name="username" placeholder="username" type="text">
+                    </div>
+                    <div class="field">
+                        <input name="password" placeholder="password" type="password">
+                    </div>
+                <button class="ui fluid large blue submit button" type="submit">Log In</button>
+            </div>
+        </form>
+        <br>
+        <a href="/register">Not on Very Good Meal Planner yet? Sign up</a>
+    </div>
+</div>
 
 <% include ./partials/footer %>

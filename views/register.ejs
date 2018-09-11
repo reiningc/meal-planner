@@ -1,9 +1,26 @@
 <% include ./partials/header %>
-<form action="/register" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign Up</button>
-</form>
 
+<div class="ui middle aligned center aligned grid">
+    <div class="six wide column">
+        <h1 class="ui header">
+            <div class="content">
+                    Sign Up
+            </div>
+        </h1>
 
+        <form class="ui form" action="/register" method="POST">
+            <div class="ui stacked segment">
+                <div class="field">
+                        <input name="username" placeholder="username" type="text">
+                    </div>
+                    <div class="field">
+                        <input name="password" placeholder="password" type="password">
+                    </div>
+                <button class="ui fluid large blue submit button" type="submit">Log In</button>
+            </div>
+        </form>
+        <br>
+        <a href="/login">Already on Very Good Meal Planner? Log in</a>
+    </div>
+</div>
 <% include ./partials/footer %>
