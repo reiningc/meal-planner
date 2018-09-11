@@ -1,0 +1,24 @@
+<% include ../partials/header.ejs %>
+<div class="ui middle aligned center aligned grid">
+    <div class="six wide column">
+        <h1 class="ui header">
+            <div class="content">
+                    Edit Comment
+            </div>
+        </h1>
+
+        <form class="ui form" action="/meals/<%= meal_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <div class="ui stacked segment">
+                <div class="field">
+                        <input name="comment[text]" value="<%= comment.text %>" type="text">
+                    </div>
+                <button class="ui fluid large blue submit button" type="submit">Submit Comment</button>
+            </div>
+        </form> 
+    </div>
+</div>
+
+
+<a href="/meals">Go Back</a>
+
+<% include ../partials/footer %>
