@@ -4,7 +4,7 @@ var Meal = require("../models/meal");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
-// Comments New
+// NEW
 router.get("/new", middleware.isLoggedIn, function(req, res){
     Meal.findById(req.params.id, function(err, meal){
         if(err){
@@ -14,8 +14,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
         }
     });
 });
-
-// Comments Create
+// CREATE
 router.post("/", middleware.isLoggedIn, function(req, res){
     // lookup meal using ID
     Meal.findById(req.params.id, function(err, meal){
@@ -59,6 +58,17 @@ router.get("/:comment_id/edit", function(req, res){
 // UPDATE
 router.put("/:comment_id", function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("/meals/" + req.params.id);
+        }
+    });
+});
+
+// DESTROY
+router.delete("/:comment_id", function(req, res){
+    Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){
             res.redirect("back");
         } else {
