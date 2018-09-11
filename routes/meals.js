@@ -52,4 +52,37 @@ router.get("/:id", function(req, res){
     });
 });
 
+// EDIT MEAL
+router.get("/:id/edit", middleware.checkMealOwnership, function(req, res){
+    Meal.findById(req.params.id, function(err, foundMeal){
+        if(err){
+            res.redirect("meals");
+        } else {
+            res.render("meals/edit", {meal: foundMeal});
+        }
+    });
+});
+
+router.put("/:id", middleware.checkMealOwnership, function(req, res){
+    Meal.findByIdAndUpdate(req.params.id, req.body.meal, function(err, updatedMeal){
+        if(err){
+            res.redirect("/meals");
+        } else {
+            res.redirect("/meals/" + req.params.id);
+        }
+    });
+});
+
+// DESTROY MEAL
+router.delete("/:id", middleware.checkMealOwnership, function(req, res){
+    Meal.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/meals");
+        } else {
+            res.redirect("/meals");
+        }
+    });
+});
+
+
 module.exports = router;
