@@ -7,20 +7,21 @@
 
     </head>
     <body>
-        <div class="ui container">
-            <div class="ui menu">
-                <a class="header item" href="/">Very Good Meal Planner</a>
-                <a class="item" href="/meals">Meals</a>
-                <div class="right menu">
-                    <% if(!currentUser) { %>
-                        <a class="item" href="/login">Log In</a>
-                        <a class="item" href="/register">Sign Up</a>
-                    <% } else { %>
-                        <a class="item">Signed In As <%= currentUser.username %></a>
-                        <a class="item" href="/logout">Log Out</a>
-                    <% } %>
-                </div>
+        <div class="ui menu">
+            <a class="header item" href="/">Very Good Meal Planner</a>
+            <a class="item" href="/meals">Meals</a>
+            <div class="right menu">
+                <% if(!currentUser) { %>
+                    <a class="item" href="/login">Log In</a>
+                    <a class="item" href="/register">Sign Up</a>
+                <% } else { %>
+                    <a class="item">Signed In As <%= currentUser.username %></a>
+                    <a class="item" href="/logout">Log Out</a>
+                <% } %>
             </div>
+        </div>
+        <div class="ui container">
+
         <% if(error && error.length > 0) { %>
             <div class="ui error message">
                     <%= error %>
