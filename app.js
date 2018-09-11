@@ -38,6 +38,8 @@ passport.deserializeUser(User.deserializeUser());
 // middleware to add currentUser to the list of objects passed within each route
 app.use(function(req, res, next){
     res.locals.currentUser = req.user; // req.user comes from passport
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
