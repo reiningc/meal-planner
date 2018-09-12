@@ -10,12 +10,15 @@
         <div class="ui menu">
             <a class="header item" href="/">Very Good Meal Planner</a>
             <a class="item" href="/meals">Meals</a>
+            <% if(currentUser) { %>
+                <a class="item" href="/plans">Meal Plans</a>
+            <% } %>
             <div class="right menu">
                 <% if(!currentUser) { %>
                     <a class="item" href="/login">Log In</a>
                     <a class="item" href="/register">Sign Up</a>
                 <% } else { %>
-                    <a class="item">Signed In As <%= currentUser.username %></a>
+                    <a class="item" href="/u/<%=currentUser.username%>">Signed In As <%= currentUser.username %></a>
                     <a class="item" href="/logout">Log Out</a>
                 <% } %>
             </div>
