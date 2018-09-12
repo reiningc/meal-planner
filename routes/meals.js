@@ -111,7 +111,6 @@ router.put("/:id/add", middleware.isLoggedIn, function(req, res){
             // add meal id to plan
             // add plan id to meal
             // redirect back to meals index
-            console.log(meal);
             Plan.findById(req.body.plan, function(err, plan){
                 meal.plans.push(plan);
                 meal.save();
