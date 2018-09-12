@@ -32,6 +32,9 @@
                     <div class="center aligned content">
                         <h4><%= meal.name %></h4>
                         <p><a class="ui blue button" href="/meals/<%= meal._id %>">Show Recipe</a></p>
+                        <form action="/plans/<%=plan.id%>/remove/<%=meal._id%>?_method=PUT" method="POST">
+                            <button class="ui negative button">Remove Meal</button>
+                        </form>
                     </div>
                 </div>
             </div>
