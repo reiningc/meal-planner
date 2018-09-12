@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var Meal = require("../models/meal");
+var User = require("../models/user");
+var Plan = require("../models/plan");
 var middleware = require("../middleware");
 
 // INDEX - display all meals
@@ -65,6 +67,7 @@ router.get("/:id/edit", middleware.checkMealOwnership, function(req, res){
     });
 });
 
+// UPDATE MEAL
 router.put("/:id", middleware.checkMealOwnership, function(req, res){
     Meal.findByIdAndUpdate(req.params.id, req.body.meal, function(err, updatedMeal){
         if(err){
@@ -72,6 +75,51 @@ router.put("/:id", middleware.checkMealOwnership, function(req, res){
         } else {
             req.flash("success", "Meal updated.");
             res.redirect("/meals/" + req.params.id);
+        }
+    });
+});
+
+// ADD MEAL TO PLAN
+router.get("/:id/add", middleware.isLoggedIn, function(req,res){
+    User.findOne({username: req.user.username}).populate("plans").exec(function(err, foundUser){
+        if(err || !foundUser){
+            req.flash("error", "User not found.");
+            res.redirect("back");
+        } else {
+            Meal.findById(req.params.id, function(err,foundMeal){
+                if(err || !foundMeal){
+                    req.flash("error", "Meal not found.");
+                    res.redirect("/meals");
+                } else {
+                    res.render("meals/add", {meal: foundMeal, user: foundUser});
+                }
+            });
+        }
+    });
+});
+
+// LOGIC FOR ADDING MEAL TO PLAN
+router.put("/:id/add", middleware.isLoggedIn, function(req, res){
+    // lookup meal using ID
+    console.log(req.body);
+    Meal.findById(req.params.id, function(err, meal){
+        if(err){
+            req.flash("error", "Something went wrong.");
+            console.log(err);
+            res.redirect("/meals");
+        } else {
+            // add meal id to plan
+            // add plan id to meal
+            // redirect back to meals index
+            console.log(meal);
+            Plan.findById(req.body.plan, function(err, plan){
+                meal.plans.push(plan);
+                meal.save();
+                plan.meals.push(meal);
+                plan.save();
+                req.flash("success", "Meal added.");
+                res.redirect("/meals/");
+            });
         }
     });
 });
