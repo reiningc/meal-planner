@@ -12,6 +12,13 @@ var mealSchema = new mongoose.Schema({
         },
         username: String
     },
+    plans: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Plan"
+        },
+        plan_name: String
+    },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
