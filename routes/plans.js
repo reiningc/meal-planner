@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var Meal = require("../models/meal");
 var Plan = require("../models/plan");
 var User = require("../models/user");
 var middleware = require("../middleware");
@@ -88,6 +89,25 @@ router.put("/:plan_id", function(req, res){
     });
 });
 
+// REMOVE MEAL FROM PLAN
+router.put("/:plan_id/remove/:id", function(req, res){
+    Plan.findById(req.params.plan_id, function(err, foundPlan){
+        if(err || !foundPlan){
+            req.flash("error", "Meal not removed.");
+            console.log(err);
+            res.redirect("/plans/"+ foundPlan._id);
+        } else {
+            Meal.findById(req.params.id, function(err, foundMeal){
+                foundPlan.meals.pull(foundMeal);
+                foundPlan.save();
+                foundMeal.plans.pull(foundPlan);
+                foundMeal.save();
+                req.flash("success", "Meal removed.");
+                res.redirect("/plans/" + foundPlan._id);
+            });
+        }
+    });
+});
 
 // DESTROY MEAL
 router.delete("/:plan_id", function(req, res){
