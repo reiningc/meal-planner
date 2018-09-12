@@ -13,7 +13,8 @@ var express         = require("express"),
 
 var mealRoutes = require("./routes/meals"),
     indexRoutes = require("./routes/index"),
-    commentRoutes = require("./routes/comments");
+    commentRoutes = require("./routes/comments"),
+    planRoutes = require("./routes/plans");
 
 mongoose.connect("mongodb://localhost:27017/vgmp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,6 +47,7 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/meals", mealRoutes);
 app.use("/meals/:id/comments", commentRoutes);
+app.use("/plans", planRoutes);
 
 app.listen(3000, function(){
     console.log("Meal Planner server running...")

@@ -2,6 +2,7 @@ var express = require("express");
 var passport = require("passport");
 var router = express.Router();
 var User = require("../models/user");
+var Plan = require("../models/plan");
 var middleware = require("../middleware");
 
 
@@ -38,7 +39,7 @@ router.get("/login", function(req, res){
 router.post("/login", 
     passport.authenticate("local", 
         {
-            successRedirect: "/meals",
+            successRedirect: "/plans",
             failureRedirect: "/login"
         }), 
     function(req, res){
@@ -49,6 +50,18 @@ router.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "Logged you out.");
     res.redirect("/meals");
+});
+
+// user route
+router.get("/u/:user_id", function(req, res){
+    User.findOne({username: req.params.user_id}).populate("plans").exec(function(err, foundUser){
+        if(err || !foundUser){
+            req.flash("error", "User not found.");
+            res.redirect("back");
+        } else {
+            res.render("profile", {user: foundUser});
+        }
+    });
 });
 
 module.exports = router;
