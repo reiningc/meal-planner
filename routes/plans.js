@@ -18,23 +18,6 @@ router.get("/", middleware.isLoggedIn, function(req, res){
 
 // CREATE - add new meal plan to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // var name = req.body.plan.name;
-    // var author = {
-    //     id: req.user._id,
-    //     username: req.user.username
-    // }
-    // var plan = {name: name, author: author};
-
-    // Plan.create(plan, function(err, newPlan){
-    //     if(err){
-    //         console.log(err);
-    //         res.redirect("/plans");
-    //     } else {
-    //         req.flash("success", "Meal plan created.");
-    //         res.redirect("/plans");
-    //     }
-    // });
-
     // lookup user using ID
     User.findById(req.user._id, function(err, user){
         if(err){
@@ -64,7 +47,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// NEW - new meals form
+// NEW - new meal plan form
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("plans/new");
 });
@@ -76,17 +59,39 @@ router.get("/:plan_id", function(req, res){
             req.flash("error", "Meal plan not found.");
             res.redirect("back");
         } else {
-            res.send("PLAN SHOW PAGE!!!")
-            // res.render("plans/show", {plan:foundPlan});
+            res.render("plans/show", {plan:foundPlan});
         }
     });
 });
 
 // EDIT MEAL PLAN
+router.get("/:plan_id/edit", function(req, res){
+    Plan.findById(req.params.plan_id, function(err, foundPlan){
+        if(err){
+            res.redirect("plans");
+        } else {
+            res.render("plans/edit", {plan: foundPlan});
+        }
+    });
+});
+
+// UPDATE MEAL PLAN
+router.put("/:plan_id", function(req, res){
+    Plan.findByIdAndUpdate(req.params.plan_id, req.body.plan, function(err, updatedPlan){
+        if(err || !updatedPlan){
+            req.flash("error", "Something went wrong.");
+            res.redirect("/plans");
+        } else {
+            req.flash("success", "Plan updated.");
+            res.redirect("/plans/" + req.params.plan_id);
+        }
+    });
+});
+
 
 // DESTROY MEAL
-router.delete("/:plan_id", middleware.checkMealOwnership, function(req, res){
-    Meal.findByIdAndRemove(req.params.plan_id, function(err){
+router.delete("/:plan_id", function(req, res){
+    Plan.findByIdAndRemove(req.params.plan_id, function(err){
         if(err){
             res.redirect("/plans");
         } else {
