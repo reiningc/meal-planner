@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+<div class="ui grid">
+    <div class="row">
+            <div class="column">
+                <div class="ui massive message">
+                        <h1 class="ui header"><%= plan.name %></h1>
+                        <a class="ui mini yellow button" href="/plans/<%= plan._id %>/edit">Change Plan Name</a>
+                        <form class="delete-form" action="/plans/<%= plan._id %>?_method=DELETE"method="POST">
+                            <button class="ui mini negative button">Delete Plan</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="ui four column doubling stackable grid">
+    <% if(!plan.meals.length){ %>
+        <div class="row">
+            <div class="six wide column">
+                <h3>This meal plan is empty. Find some meals to add!</h3>
+                <p><a class="ui blue button" href="/meals">Add Meal</a></p>
+            </div>
+        </div>
+
+    <% } else { %>
+        <% plan.meals.forEach(function(meal){ %>
+            <div class="column">
+                <div class="ui card">
+                    <a class="image" href="/meals/<%= meal._id %>">
+                        <img src="<%= meal.image %>">
+                    </a>
+                    <div class="center aligned content">
+                        <h4><%= meal.name %></h4>
+                        <p><a class="ui blue button" href="/meals/<%= meal._id %>">Show Recipe</a></p>
+                    </div>
+                </div>
+            </div>
+        <% }); %> 
+    <% } %> 
+</div>
+
+<% include ../partials/footer %>
