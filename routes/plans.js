@@ -54,7 +54,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 });
 
 // SHOW - shows info about one meal
-router.get("/:plan_id", function(req, res){
+router.get("/:plan_id", middleware.checkPlanOwnership, function(req, res){
     Plan.findById(req.params.plan_id).populate("meals").exec(function(err, foundPlan){
         if(err || !foundPlan){
             req.flash("error", "Meal plan not found.");
@@ -66,7 +66,7 @@ router.get("/:plan_id", function(req, res){
 });
 
 // EDIT MEAL PLAN
-router.get("/:plan_id/edit", function(req, res){
+router.get("/:plan_id/edit", middleware.checkPlanOwnership, function(req, res){
     Plan.findById(req.params.plan_id, function(err, foundPlan){
         if(err){
             res.redirect("plans");
@@ -77,7 +77,7 @@ router.get("/:plan_id/edit", function(req, res){
 });
 
 // UPDATE MEAL PLAN
-router.put("/:plan_id", function(req, res){
+router.put("/:plan_id", middleware.checkPlanOwnership, function(req, res){
     Plan.findByIdAndUpdate(req.params.plan_id, req.body.plan, function(err, updatedPlan){
         if(err || !updatedPlan){
             req.flash("error", "Something went wrong.");
@@ -90,7 +90,7 @@ router.put("/:plan_id", function(req, res){
 });
 
 // REMOVE MEAL FROM PLAN
-router.put("/:plan_id/remove/:id", function(req, res){
+router.put("/:plan_id/remove/:id", middleware.checkPlanOwnership, function(req, res){
     Plan.findById(req.params.plan_id, function(err, foundPlan){
         if(err || !foundPlan){
             req.flash("error", "Meal not removed.");
@@ -110,7 +110,7 @@ router.put("/:plan_id/remove/:id", function(req, res){
 });
 
 // DESTROY MEAL
-router.delete("/:plan_id", function(req, res){
+router.delete("/:plan_id", middleware.checkPlanOwnership, function(req, res){
     Plan.findByIdAndRemove(req.params.plan_id, function(err){
         if(err){
             res.redirect("/plans");
