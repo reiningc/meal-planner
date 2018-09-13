@@ -91,7 +91,9 @@ router.get("/:id/add", middleware.isLoggedIn, function(req,res){
                     req.flash("error", "Meal not found.");
                     res.redirect("/meals");
                 } else {
-                    res.render("meals/add", {meal: foundMeal, user: foundUser});
+                    var hasPlans = false;
+                    if(foundUser.plans > []) hasPlans = true; 
+                    res.render("meals/add", {meal: foundMeal, user: foundUser, hasPlans: hasPlans});
                 }
             });
         }
