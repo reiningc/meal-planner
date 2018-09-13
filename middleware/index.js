@@ -1,5 +1,6 @@
 var Meal = require("../models/meal");
 var Comment = require("../models/comment");
+var Plan = require("../models/plan");
 
 var middlewareObj = {};
 
@@ -55,5 +56,25 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
     }
 }
 
+middlewareObj.checkPlanOwnership = function(req, res, next){
+    if(req.isAuthenticated()){
+        Plan.findById(req.params.plan_id, function(err, foundPlan){
+            if(err || !foundPlan){
+                req.flash("error", "Plan not found.");
+                res.redirect("back");
+            } else {
+                if(foundPlan.author.id.equals(req.user._id)){
+                    next();
+                } else {
+                    req.flash("error", "You don't have permission to do that.");
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        req.flash("error", "You need to be logged in to do that.");
+        res.redirect("back");
+    }
+}
 
 module.exports = middlewareObj;
